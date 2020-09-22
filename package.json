@@ -1,0 +1,22 @@
+{
+  "name": "imdb-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gavinquirk/imdb-scraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gavinquirk/imdb-scraper/issues"
+  },
+  "homepage": "https://github.com/gavinquirk/imdb-scraper#readme",
+  "dependencies": {
+    "puppeteer": "^5.3.1"
+  }
+}
