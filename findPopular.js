@@ -17,10 +17,14 @@ function run() {
         let titleList = document.querySelectorAll(
           'td[class="titleColumn"] > a'
         );
+        let imageList = document.querySelectorAll(
+          'td[class="posterColumn"] > a > img'
+        );
         // Reconstruct each result and push to results array
         for (i = 0; i < titleList.length; i++) {
           let result = {
             title: titleList[i].innerText,
+            image: imageList[i].getAttribute('src'),
           };
           results.push(result);
         }
