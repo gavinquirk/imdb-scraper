@@ -1,31 +1,36 @@
 const puppeteer = require('puppeteer');
-const IMDB_URL = `https://www.imdb.com/chart/moviemeter/`;
-(async () => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(IMDB_URL, { waitUntil: 'networkidle0' });
 
-  let data = await page.evaluate(() => {
-    let title = document.querySelector('td[class="titleColumn"] > a').innerText;
-    let year = parseInt(
-      document
-        .querySelector('td[class="titleColumn"] > span')
-        .innerText.substring(1, 5)
-    );
-    let rating = parseFloat(
-      document.querySelector('td[class="ratingColumn imdbRating"] > strong')
-        .innerText
-    );
-    let image = document
-      .querySelector('td[class="posterColumn"] > a > img')
-      .getAttribute('src');
-    return {
-      title,
-      year,
-      rating,
-      image,
-    };
+const url = 'https://www.imdb.com/chart/moviemeter/';
+
+function run() {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // Open browser and go to url
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(url);
+
+      // Evaluate page, query for elements
+      let data = await page.evaluate(() => {
+        let results = [];
+        // Get lists of title, year, rating and image
+        let titleList = document.querySelectorAll(
+          'td[class="titleColumn"] > a'
+        );
+        // Reconstruct each result and push to results array
+        for (i = 0; i < titleList.length; i++) {
+          let result = {
+            title: titleList[i].innerText,
+          };
+          results.push(result);
+        }
+        return results;
+      });
+      browser.close();
+      return resolve(data);
+    } catch (e) {
+      return reject(e);
+    }
   });
-  console.log(data);
-  await browser.close();
-})();
+}
+run().then(console.log).catch(console.error);
