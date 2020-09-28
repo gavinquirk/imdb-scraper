@@ -48,13 +48,16 @@ const IMDB_URL = `https://www.imdb.com/chart/moviemeter/`;
 
       let rating = getRating();
 
+      let imdbURL = `https://www.imdb.com/title/tt${imdbId}/`;
+
       // Place data into result obj
       const result = {
-        smallPoster,
         title,
         year,
-        imdbId,
         rating,
+        smallPoster,
+        imdbId,
+        imdbURL,
       };
 
       // Push result into results array
