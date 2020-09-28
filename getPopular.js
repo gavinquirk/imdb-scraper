@@ -23,6 +23,11 @@ const IMDB_URL = `https://www.imdb.com/chart/moviemeter/`;
 
       let title = row.querySelector('td[class="titleColumn"] > a').innerText;
 
+      let imdbId = row
+        .querySelector('td[class="titleColumn"] > a')
+        .getAttribute('href')
+        .substring(9, 16);
+
       let year = parseInt(
         row
           .querySelector('td[class="titleColumn"] > span')
@@ -34,6 +39,7 @@ const IMDB_URL = `https://www.imdb.com/chart/moviemeter/`;
         poster,
         title,
         year,
+        imdbId,
       };
 
       // Push result into results array
