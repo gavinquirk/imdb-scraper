@@ -17,7 +17,7 @@ const IMDB_URL = `https://www.imdb.com/chart/moviemeter/`;
 
     tableRows.forEach((row) => {
       // Get data for each element
-      let poster = row
+      let smallPoster = row
         .querySelector('td[class="posterColumn"] > a > img')
         .getAttribute('src');
 
@@ -34,12 +34,27 @@ const IMDB_URL = `https://www.imdb.com/chart/moviemeter/`;
           .innerText.substring(1, 5)
       );
 
+      const getRating = () => {
+        const ratingElement = row.querySelector(
+          'td[class="ratingColumn imdbRating"] > strong'
+        );
+
+        if (!ratingElement) return null;
+
+        const rating = parseFloat(ratingElement.innerText);
+
+        return rating;
+      };
+
+      let rating = getRating();
+
       // Place data into result obj
       const result = {
-        poster,
+        smallPoster,
         title,
         year,
         imdbId,
+        rating,
       };
 
       // Push result into results array
